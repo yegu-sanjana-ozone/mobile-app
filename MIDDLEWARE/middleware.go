@@ -8,9 +8,20 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
+
+	config "github.com/yegu-sanjana-ozone/mobile-app/cmd/configs"
+	db "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/DATABASE"
 	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/MODEL"
+	store "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/STORE"
 )
+
+
+
 func RequireAuth(c *gin.Context) {
+	cassandraSession := db.Session
+
+	fmt.Println("bleh")
+
 	tokenString := c.GetHeader("Authorization")
 
 	if tokenString == "" {
@@ -18,50 +29,44 @@ func RequireAuth(c *gin.Context) {
 		return
 	}
 	config, err := config.ReadConfig()
+	fmt.Println(config)
 
 	if err != nil {
 		log.Fatal("Cannot load config", err.Error())
 	}
-	//validate it
+	// validate it
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+		fmt.Println("asdtest",token)
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); 
+		!ok {
+			fmt.Println("ok",ok )
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
 		return []byte(config.SecretKey), nil
 	})
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
-		return
-	}
+	fmt.Println("token",token.Valid,token.Claims)
+	
+
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		fmt.Println("HERE")
 		//check the expiry
-		if float64(time.Now().Unix()) > claims["expires"].(float64) {
+		fmt.Println(claims,time.Now().Unix())
+		if float64(time.Now().Unix()) > claims["expresat"].(float64) {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Token expired"})
 			return
 		}
-
-		//Find the user with token
+		
 		var user Model.User
-		fmt.Println("here")
-		db, err := db.ReturnDB()
-		if err != nil {
-			panic("Failed to connect to database: " + err.Error())
-		}
-
-		db.First(&user, "email=?", claims["email"])
-		fmt.Println("next here")
-
+        fmt.Println("claimsemail",claims["Email"].(string))
+		user  = store.CheckEmail(cassandraSession, claims["Email"].(string))
+  fmt.Println("user",user)
+		fmt.Println("user",user)
 		if user.Email == "" {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorised"})
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"asdf": "Unauthorised"})
 		}
 
 		c.Set("user", user)
-	} else {
-		fmt.Println("HERE1")
-		fmt.Println(err)
-		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
-	}
 	c.Next()
+	}
 }

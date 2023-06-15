@@ -1,6 +1,7 @@
 package users
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -28,6 +29,7 @@ func Login(c *gin.Context) {
 		c.JSON(200, gin.H{"message": "Login successful"})
 
 		token,err := tokenutil.CreateAccessToken(&user,"hello",913208515142266763)
+		fmt.Println(token)
 
 		if(err!=nil){
 			panic(err)

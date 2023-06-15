@@ -3,14 +3,12 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 
-	db "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/DATABASE"
-	service "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/SERVICE"
 )
 
-func GetMobile ( c *gin.Context){
-	cassandraSession := db.Session
+func (h *Handler) GetMobile ( c *gin.Context){
 
-	 mobile,err:= service.GetMobile(cassandraSession)
+
+	 mobile,err:= h.service.GetMobile()
 	if err != nil {
 		c.JSON(500, gin.H{
 			"message": err.Error(),

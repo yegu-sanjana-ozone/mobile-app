@@ -15,11 +15,10 @@ type User struct {
 	Password string `json:"password"`
 }
 
-type JwtCustomClaims struct {
-	Email string `json:"name"`
-	ID   string `json:"id"`
-	jwt.StandardClaims
-}
+// type JwtCustomClaims struct {
+// 	Email string `json:"name"`
+// 	exp 
+// }
 
 type JwtCustomRefreshClaims struct {
 	ID string `json:"id"`

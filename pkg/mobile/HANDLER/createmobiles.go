@@ -3,10 +3,21 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/MODEL"
-	service "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/SERVICE"
+
 )
 
-func CreateMobiles (c *gin.Context) {
+// CreateMobiles godoc
+// @Summary Create a mobile
+// @Description Create a new mobile with the provided details
+// @Tags Mobile
+// @Accept json
+// @Produce json
+// @Param mobile body MobileRequest true "Mobile object to be created"
+// @Success 200 {string} string "Mobile created successfully"
+// @Failure 400 {object} ErrorResponse "Error response"
+// @Router /mobile [post]
+
+func (h *Handler) CreateMobiles (c *gin.Context) {
 
  var request Model.Mobile
 
@@ -20,7 +31,7 @@ func CreateMobiles (c *gin.Context) {
     Price: request.Price,
  }
 
- err := service.CreateMobile(mobile)
+ err := h.service.CreateMobile(mobile)
 
  if err!= nil {
      c.JSON(400, gin.H{"error": err.Error()})

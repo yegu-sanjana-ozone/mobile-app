@@ -1,15 +1,15 @@
 package service
 
 import (
-	db "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/DATABASE"
+
 	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/MODEL"
-	store "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/STORE"
+
 )
 
-func CreateMobile (mobile Model.Mobile) error {
+func (s *service) CreateMobile (mobile Model.Mobile) error {
  
-	cassandraSession := db.Session
-	err := store.CreateMobile(cassandraSession ,mobile)
+
+	err := s.store.CreateMobile(mobile)
 	if err != nil{
 		return err
 	}

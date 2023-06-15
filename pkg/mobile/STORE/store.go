@@ -3,24 +3,52 @@ package store
 import (
 	"fmt"
 	"log"
-
+	db "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/DATABASE"
 	"github.com/gocql/gocql"
+	// "github.com/golang-jwt/jwt/v4"
 	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/MODEL"
 	"golang.org/x/crypto/bcrypt"
 )
 
-func CreateMobile(session *gocql.Session,mobile Model.Mobile) error {
+type Store interface{
+	CreateMobile(mobile Model.Mobile) error  
+	GetAllMobiles()  ([]Model.Mobile, error)
+	GetByID( id int ) Model.Mobile
+	DeleteByID( id int) error
+	UpdateByID( id int, brand string) error
+} 
+
+type store struct {
+	session *gocql.Session
+}
+var mobileStore Store
+
+func NewStore () Store {
+	Session := db.Session
+	return &store{
+		session : Session,
+	}
+}
+
+func GetStore() Store {
+	if mobileStore == nil{
+		mobileStore = NewStore()
+	}
+	return mobileStore 
+}
+
+func (s *store) CreateMobile(mobile Model.Mobile) error {
 	query := `INSERT INTO mobile_app.mobile(id,brand,model,year,price) VALUES (?,?,?,?,?)`
-	err := session.Query(query,mobile.ID,mobile.Brand,mobile.Model,mobile.Year,mobile.Price).Exec()
+	err := s.session.Query(query,mobile.ID,mobile.Brand,mobile.Model,mobile.Year,mobile.Price).Exec()
 	if err != nil{
 		log.Printf("ERROR: %s", err.Error())
 	}
 	return err
 }
 
-func GetAllMobiles(session *gocql.Session) ([]Model.Mobile, error) {
+func (s *store) GetAllMobiles() ([]Model.Mobile, error) {
 	query := `SELECT * FROM mobile_app.mobile`
-	iter := session.Query(query).Iter()
+	iter := s.session.Query(query).Iter()
 	defer iter.Close()
 
 	var mobiles []Model.Mobile
@@ -41,16 +69,16 @@ func GetAllMobiles(session *gocql.Session) ([]Model.Mobile, error) {
 	return mobiles, nil
 }
 
-func GetByID(session *gocql.Session, id int ) Model.Mobile{
+func (s *store) GetByID( id int ) Model.Mobile{
 	query := `SELECT * FROM mobile_app.mobile WHERE id=?`
 	var mobile Model.Mobile
-	session.Query(query,id).Scan(&mobile.ID, &mobile.Brand, &mobile.Model, &mobile.Year, &mobile.Price)
+	s.session.Query(query,id).Scan(&mobile.ID, &mobile.Brand, &mobile.Model, &mobile.Year, &mobile.Price)
 	return mobile
 }
 
-func DeleteByID(session *gocql.Session, id int) error {
+func (s *store) DeleteByID( id int) error {
 	query := `DELETE FROM mobile_app.mobile WHERE id=?`
-	err := session.Query(query,id).Exec()
+	err := s.session.Query(query,id).Exec()
 	if err != nil {
 		log.Printf("ERROR: fail edit document, %s", err.Error())
 	}
@@ -58,9 +86,9 @@ func DeleteByID(session *gocql.Session, id int) error {
 	return err
 }
 
-func UpdateByID(session *gocql.Session, id int, brand string) error {
+func (s *store) UpdateByID( id int, brand string) error {
 	query := `UPDATE mobile_app.mobile SET  brand=? WHERE id=?`
-	err := session.Query(query, brand, id).Exec()
+	err := s.session.Query(query, brand, id).Exec()
 	if err != nil {
 		log.Printf("ERROR: failed to edit document, %s", err.Error())
 	}
@@ -94,5 +122,15 @@ func ValidateUser(session *gocql.Session, user Model.User) error {
 	}
 
 	return nil
+
+}
+
+func CheckEmail( session *gocql.Session, email string) Model.User {
+    fmt.Println("email",email)
+	query := `SELECT * FROM mobile_app.user WHERE Email=?`
+	var user Model.User
+    session.Query(query,email).Scan(&user.Email,&user.Password)
+	fmt.Println("userdb",user)
+	return user
 
 }
