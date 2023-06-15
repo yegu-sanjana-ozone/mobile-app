@@ -1,0 +1,11 @@
+mode: set
+github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/HANDLER/DeleteById.go:20.45,25.2 4 0
+github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/HANDLER/GetByID.go:9.42,15.2 4 0
+github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/HANDLER/GetMobile.go:8.46,12.16 2 0
+github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/HANDLER/GetMobile.go:19.2,19.21 1 0
+github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/HANDLER/GetMobile.go:12.16,17.3 2 0
+github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/HANDLER/UpdateById.go:11.46,21.2 6 0
+github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/HANDLER/createmobiles.go:21.50,37.15 5 1
+github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/HANDLER/createmobiles.go:42.1,42.50 1 1
+github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/HANDLER/createmobiles.go:37.15,40.3 2 0
+github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/HANDLER/handler.go:9.20,13.2 1 1

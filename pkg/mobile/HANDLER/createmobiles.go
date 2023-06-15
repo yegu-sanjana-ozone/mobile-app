@@ -3,6 +3,7 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/MODEL"
+	"net/http"
 
 )
 
@@ -38,5 +39,5 @@ func (h *Handler) CreateMobiles (c *gin.Context) {
      return
  }
 
-
+c.JSON(http.StatusOK,gin.H{"message": "Created"})
 }

@@ -3,8 +3,10 @@ package store
 import (
 	"fmt"
 	"log"
-	db "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/DATABASE"
+
 	"github.com/gocql/gocql"
+	db "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/DATABASE"
+
 	// "github.com/golang-jwt/jwt/v4"
 	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/MODEL"
 	"golang.org/x/crypto/bcrypt"

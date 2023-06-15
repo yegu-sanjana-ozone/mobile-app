@@ -15,17 +15,17 @@ import (
 
 
 func InitRoutes(adminRoutes *gin.RouterGroup){
-
+    mh := handler.New()
 	mobileRoute := adminRoutes.Group("/mobile")
 	baseRoute := adminRoutes.Group("")
 	baseRouteAuth := adminRoutes.Group("")
 	mobileRoute.Use(middleware.RequireAuth)
 	baseRouteAuth.Use(middleware.RequireAuth)
-	mobileRoute.POST("",handler.CreateMobiles)
-	mobileRoute.GET("", handler.GetMobile)
-	mobileRoute.GET("/:id",handler.GetByID)
-	mobileRoute.DELETE("/:id",handler.DeleteByID)
-    mobileRoute.PUT("/:id",handler.UpdateByID)
+	mobileRoute.POST("",mh.CreateMobiles)
+	mobileRoute.GET("", mh.GetMobile)
+	mobileRoute.GET("/:id",mh.GetByID)
+	mobileRoute.DELETE("/:id",mh.DeleteByID)
+    mobileRoute.PUT("/:id",mh.UpdateByID)
 	baseRoute.POST("/signup",users.Signup)
 	baseRoute.POST("/login",users.Login)
 	baseRouteAuth.GET("/validate",users.Validate)
