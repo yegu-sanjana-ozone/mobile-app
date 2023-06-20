@@ -6,10 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	middleware "github.com/yegu-sanjana-ozone/mobile-app/MIDDLEWARE"
-	db "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/DATABASE"
-	handler "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/HANDLER"
-	users "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/USER"
+	middleware "github.com/yegu-sanjana-ozone/mobile-app/middleware"
+	db "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/database"
+	handler "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/handler"
+	users "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/user"
 )
 
 

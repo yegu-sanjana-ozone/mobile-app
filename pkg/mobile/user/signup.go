@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	db "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/DATABASE"
-	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/MODEL"
-	store "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/STORE"
+	db "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/database"
+	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/model"
+	store "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/store"
 	"golang.org/x/crypto/bcrypt"
 )
 

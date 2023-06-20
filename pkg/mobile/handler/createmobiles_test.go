@@ -1,7 +1,6 @@
 package handler_test
 
 import (
-	"errors"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -12,9 +11,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	mockMobile "github.com/yegu-sanjana-ozone/mobile-app/mocks"
-	handler "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/HANDLER"
-	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/MODEL"
-	service "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/SERVICE"
+	handler "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/handler"
+	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/model"
+	service "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/service"
 )
 
 func TestMobileHandler_CreateMobile(t *testing.T) {
@@ -49,20 +48,6 @@ func TestMobileHandler_CreateMobile(t *testing.T) {
 				})
 			}),
 		},
-		// {
-		// 	desc:"fail internal server error",
-		// 	service: func() service.Service{
-		// 		mS := new(mockMobile.Service)
-		// 		mS.On("CreateMobile", mock.Anything).Return(&handlerhelper.ServiceError{
-		// 			statusCode:400,
-		// 			Error: errors.New("some error"),
-		// 		})
-		// 		return mS
-		// 	}(),
-		// 	expStatusCode: 400,
-		// 	path: "/mobile",
-
-		// },
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {

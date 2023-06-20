@@ -1,6 +1,6 @@
 package handler
 
-import service "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/SERVICE"
+import service "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/service"
 
 type Handler struct {
 	service service.Service

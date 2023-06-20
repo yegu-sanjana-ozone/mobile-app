@@ -1,8 +1,8 @@
 package service
 
 import (
-	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/MODEL"
-	store "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/STORE"
+	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/model"
+	store "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/store"
 )
 
 type Service interface {

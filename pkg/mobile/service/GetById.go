@@ -2,7 +2,7 @@ package service
 
 import (
 
-	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/MODEL"
+	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/model"
 )
 
 func (s *service) GetByID (id int) Model.Mobile {

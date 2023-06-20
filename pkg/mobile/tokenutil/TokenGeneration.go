@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt"
-	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/MODEL"
+	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/model"
 )
 
 func CreateAccessToken(user *Model.User, secret string, expiry int) (accessToken string, err error) {

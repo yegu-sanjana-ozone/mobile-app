@@ -4,7 +4,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/MODEL"
+	Model "github.com/yegu-sanjana-ozone/mobile-app/pkg/mobile/model"
 
 )
 
